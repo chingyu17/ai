@@ -1,0 +1,16 @@
+<input id="userInput" placeholder="問我任何關於 Linux 或棒球的事...">
+<button onclick="send()">發送</button>
+<div id="chatBox"></div>
+
+<script>
+  async function send() {
+    const msg = document.getElementById('userInput').value;
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: msg })
+    });
+    const data = await res.json();
+    document.getElementById('chatBox').innerText = data.reply;
+  }
+</script>
